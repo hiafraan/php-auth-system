@@ -1,0 +1,21 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+}
+
+body {
+  background: #212121;
+  color: #ececec;
+}
