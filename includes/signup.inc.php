@@ -1,34 +1,31 @@
 <?php
 
-if($_SERVER["REQUEST_METHOD"] === "POST"){
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $username = $_POST["username"];
     $pwd = $_POST["pwd"];
     $email = $_POST["email"];
 
-    try{
+    try {
         require_once 'dbh.inc.php';
         require_once 'signup_model.inc.php';
         require_once 'signup_contr.inc.php';
 
         // ERROR HANDLERS
         $errors = [];
-        if(is_input_empty($username, $pwd, $email)){
+        if (is_input_empty($username, $pwd, $email)) {
             $errors["empty_input"] = "Fill in all fields!";
-        }
-        else if(is_username_taken($pdo, $username)){
+        } else if (is_username_taken($pdo, $username)) {
             $errors["username_taken"] = "Username already taken!";
-        }
-        else if(is_email_invalid($email)){
+        } else if (is_email_invalid($email)) {
             $errors["invalid_email"] = "Invalid email used!";
-        }
-        else if(is_email_registered($pdo,$email)){
+        } else if (is_email_registered($pdo, $email)) {
             $errors["email_used"] = "Email already registered!";
         }
 
         require_once 'config_session.inc.php';
 
-        if ($errors){
+        if ($errors) {
             $_SESSION['errors_signup'] = $errors;
 
             $signupData = ["username" => $username, "email" => $email];
@@ -45,11 +42,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         $pdo = null;
         $stmt = null;
         die();
-
-    } catch(PDOException $e){
+    } catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
-}else{
+} else {
     header("Location: ../index.php");
     die();
 }
